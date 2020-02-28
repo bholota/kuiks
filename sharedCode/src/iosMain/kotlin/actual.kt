@@ -27,7 +27,11 @@ class UIElementWrapper(val element: XCUIElement): AppElement {
     }
 
     override fun hasText(text: String, timeout: Long) {
-        element.waitForExistenceWithTimeout(text)
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getText(timeout: Long): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun elementWith(testId: String, type: XCUIElementType): AppElement {
@@ -69,7 +73,11 @@ actual class ApplicationWrapper actual constructor(identifier: String) : Applica
     }
 
     override fun hasText(text: String, timeout: Long) {
-        return UIElementWrapper(app).hasText(text, 0)
+        return UIElementWrapper(app).hasText(text, timeout)
+    }
+
+    override fun getText(timeout: Long): String {
+        return UIElementWrapper(app).getText(timeout)
     }
 
     override val debugDescription: String

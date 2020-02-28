@@ -56,7 +56,8 @@ open class TestExample {
             val app = ApplicationWrapper(identifier)
             app.launch()
             app.elementWithTestId("make_call").tap()
-            app.elementWithTestId("label").hasText("Dawid, michallaskowskivimn")
+            app.elementWithTestId("label").hasText("Dawid")
+            check(app.elementWithTestId("label").getText().equals("Dawid, michallaskowskivimn"))
         }
     }
 }

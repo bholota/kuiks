@@ -2,8 +2,11 @@ package com.laskowski.kuiks
 
 import android.content.Intent
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
@@ -11,12 +14,13 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
+import org.hamcrest.core.StringContains.containsString
 import java.util.concurrent.TimeUnit
 
 
 actual val platform: Platform = Platform.Android
 
-class ElementWrapper(val matcher: Matcher<View>): AppElement {
+class ElementWrapper(val matcher: Matcher<View>) : AppElement {
     override fun tap() {
         Espresso.onView(matcher).perform(ViewActions.click())
     }
@@ -36,16 +40,46 @@ class ElementWrapper(val matcher: Matcher<View>): AppElement {
 
     override fun cell(withId: String): AppElement {
         val cellMatcher = ViewMatchers.withContentDescription(withId)
-        Espresso.onView(matcher).perform(RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(cellMatcher))
+        Espresso.onView(matcher)
+            .perform(RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(cellMatcher))
         return ElementWrapper(cellMatcher)
     }
 
     override fun waitForExistence(timeout: Long) {
-        ViewAssertionIdler.waitFor(matcher, ViewAssertions.matches(ViewMatchers.isDisplayed()), timeout, TimeUnit.SECONDS)
+        ViewAssertionIdler.waitFor(
+            matcher,
+            ViewAssertions.matches(ViewMatchers.isDisplayed()),
+            timeout,
+            TimeUnit.SECONDS
+        )
     }
 
     override fun hasText(text: String, timeout: Long) {
-        ViewAssertionIdler.waitFor(matcher, ViewAssertions.matches(ViewMatchers.withText(text)), timeout, TimeUnit.SECONDS)
+        ViewAssertionIdler.waitFor(
+            matcher,
+            ViewAssertions.matches(ViewMatchers.withText(containsString(text))),
+            timeout,
+            TimeUnit.SECONDS
+        )
+    }
+
+    override fun getText(timeout: Long): String {
+        var text = ""
+        onView(matcher).check { hasTextView, noTextView ->
+            if (noTextView != null) {
+                throw ClassCastException("Non TextView or EditText matchers do not have text")
+            }
+            if (hasTextView == null) {
+                throw Exception("View is null")
+            }
+            text = if (hasTextView is TextView) {
+                hasTextView.text.toString()
+            } else {
+                (hasTextView as EditText).text.toString()
+            }
+
+        }
+        return text
     }
 
     override val debugDescription: String
@@ -53,7 +87,7 @@ class ElementWrapper(val matcher: Matcher<View>): AppElement {
 
 }
 
-actual class ApplicationWrapper actual constructor(private val identifier: String): Application {
+actual class ApplicationWrapper actual constructor(private val identifier: String) : Application {
     override fun launch() {
         // based on https://github.com/appium/appium-espresso-driver/blob/05ccf5a7fa440bfee96400b52672287458676dfa/espresso-server/app/src/androidTest/java/io/appium/espressoserver/lib/helpers/ActivityHelper.kt
         val instrumentation = InstrumentationRegistry.getInstrumentation()
@@ -87,6 +121,10 @@ actual class ApplicationWrapper actual constructor(private val identifier: Strin
 
     override fun hasText(text: String, timeout: Long) {
         //TODO
+    }
+
+    override fun getText(timeout: Long): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override val debugDescription: String

@@ -7,6 +7,7 @@ interface AppElement {
     fun cell(withId: String): AppElement
     fun waitForExistence(timeout: Long = 10)
     fun hasText(text: String, timeout: Long = 10)
+    fun getText(timeout: Long = 10): String
     val debugDescription: String
 }
 
