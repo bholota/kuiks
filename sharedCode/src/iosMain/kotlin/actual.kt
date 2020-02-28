@@ -22,8 +22,12 @@ class UIElementWrapper(val element: XCUIElement): AppElement {
         return UIElementWrapper(query)
     }
 
-    override fun waitForExistence(timeout: Double) {
+    override fun waitForExistence(timeout: Long) {
         element.waitForExistenceWithTimeout(timeout)
+    }
+
+    override fun hasText(text: String, timeout: Long) {
+        element.waitForExistenceWithTimeout(text)
     }
 
     private fun elementWith(testId: String, type: XCUIElementType): AppElement {
@@ -60,8 +64,12 @@ actual class ApplicationWrapper actual constructor(identifier: String) : Applica
         return UIElementWrapper(app).table(withId)
     }
 
-    override fun waitForExistence(timeout: Double) {
+    override fun waitForExistence(timeout: Long) {
         return UIElementWrapper(app).waitForExistence(timeout)
+    }
+
+    override fun hasText(text: String, timeout: Long) {
+        return UIElementWrapper(app).hasText(text, 0)
     }
 
     override val debugDescription: String

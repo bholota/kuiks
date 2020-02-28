@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
+import java.util.concurrent.TimeUnit
 
 
 actual val platform: Platform = Platform.Android
@@ -39,12 +40,12 @@ class ElementWrapper(val matcher: Matcher<View>): AppElement {
         return ElementWrapper(cellMatcher)
     }
 
-    override fun waitForExistence(timeout: Double) {
-        Espresso.onView(matcher).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    override fun waitForExistence(timeout: Long) {
+        ViewAssertionIdler.waitFor(matcher, ViewAssertions.matches(ViewMatchers.isDisplayed()), timeout, TimeUnit.SECONDS)
     }
 
-    override fun hasText(text: String) {
-        Espresso.onView(matcher).check(ViewAssertions.matches(ViewMatchers.withText(text)))
+    override fun hasText(text: String, timeout: Long) {
+        ViewAssertionIdler.waitFor(matcher, ViewAssertions.matches(ViewMatchers.withText(text)), timeout, TimeUnit.SECONDS)
     }
 
     override val debugDescription: String
@@ -80,11 +81,11 @@ actual class ApplicationWrapper actual constructor(private val identifier: Strin
         TODO("not implemented")
     }
 
-    override fun waitForExistence(timeout: Double) {
+    override fun waitForExistence(timeout: Long) {
         TODO("not implemented")
     }
 
-    override fun hasText(text: String) {
+    override fun hasText(text: String, timeout: Long) {
         //TODO
     }
 

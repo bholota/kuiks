@@ -5,7 +5,6 @@ import com.laskowski.kuiks.Platform
 import com.laskowski.kuiks.platform
 import mockServer
 import kotlin.test.Test
-import kotlin.time.TestClock
 
 open class TestExample {
 
@@ -33,7 +32,7 @@ open class TestExample {
         val list = app.table("list")
         list.cell("1").tap()
 
-        app.elementWithTestId("show_list").waitForExistence(1.0)
+        app.elementWithTestId("show_list").waitForExistence(1)
     }
 
     @Test
@@ -46,7 +45,7 @@ open class TestExample {
         val list = app.table("list")
         list.cell("99").tap()
 
-        app.elementWithTestId("show_list").waitForExistence(1.0)
+        app.elementWithTestId("show_list").waitForExistence(1)
     }
 
     @Test

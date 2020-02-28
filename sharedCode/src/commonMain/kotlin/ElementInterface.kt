@@ -5,8 +5,8 @@ interface AppElement {
     fun elementWithTestId(testId: String) : AppElement
     fun table(withId: String): AppElement
     fun cell(withId: String): AppElement
-    fun waitForExistence(timeout: Double)
-    fun hasText(text: String)
+    fun waitForExistence(timeout: Long = 10)
+    fun hasText(text: String, timeout: Long = 10)
     val debugDescription: String
 }
 
