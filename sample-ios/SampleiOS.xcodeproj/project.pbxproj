@@ -3,11 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6EB296AD24096B6C004B976D /* ContributorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB296AC24096B6C004B976D /* ContributorsView.swift */; };
+		6EB296B32409B3E3004B976D /* Embassy in Frameworks */ = {isa = PBXBuildFile; productRef = 6EB296B22409B3E3004B976D /* Embassy */; };
+		6EB296B52409B570004B976D /* HttpMockingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB296B42409B570004B976D /* HttpMockingTests.swift */; };
+		6EB296B82409BBAA004B976D /* Ambassador in Frameworks */ = {isa = PBXBuildFile; productRef = 6EB296B72409BBAA004B976D /* Ambassador */; };
 		C133927623FF434F00000C1B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133927523FF434F00000C1B /* ListView.swift */; };
 		C1339278240165BA00000C1B /* ListViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1339277240165BA00000C1B /* ListViewControler.swift */; };
 		C141B62923EF0AAB003AAE22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C141B62823EF0AAB003AAE22 /* AppDelegate.swift */; };
@@ -48,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		6EB296AC24096B6C004B976D /* ContributorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributorsView.swift; sourceTree = "<group>"; };
+		6EB296B42409B570004B976D /* HttpMockingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpMockingTests.swift; sourceTree = "<group>"; };
 		C133927523FF434F00000C1B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		C1339277240165BA00000C1B /* ListViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControler.swift; sourceTree = "<group>"; };
 		C141B62523EF0AAB003AAE22 /* SampleiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +86,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C157091C23EF6050003481FB /* sharedTests.framework in Frameworks */,
+				6EB296B32409B3E3004B976D /* Embassy in Frameworks */,
+				6EB296B82409BBAA004B976D /* Ambassador in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +148,7 @@
 				C157092723F1FD67003481FB /* TestBaseForSelector.h */,
 				C157092823F1FD75003481FB /* TestBaseForSelector.m */,
 				C157092A23F1FEB1003481FB /* DelegatingTestBase.swift */,
+				6EB296B42409B570004B976D /* HttpMockingTests.swift */,
 			);
 			path = SampleiOSUITests;
 			sourceTree = "<group>";
@@ -170,6 +177,8 @@
 			dependencies = (
 			);
 			name = SampleiOS;
+			packageProductDependencies = (
+			);
 			productName = SampleiOS;
 			productReference = C141B62523EF0AAB003AAE22 /* SampleiOS.app */;
 			productType = "com.apple.product-type.application";
@@ -190,6 +199,10 @@
 				C157091523EF4E37003481FB /* PBXTargetDependency */,
 			);
 			name = SampleiOSUITests;
+			packageProductDependencies = (
+				6EB296B22409B3E3004B976D /* Embassy */,
+				6EB296B72409BBAA004B976D /* Ambassador */,
+			);
 			productName = SampleiOSUITests;
 			productReference = C157090F23EF4E37003481FB /* SampleiOSUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -223,6 +236,10 @@
 				Base,
 			);
 			mainGroup = C141B61C23EF0AAB003AAE22;
+			packageReferences = (
+				6EB296AF2409B3A2004B976D /* XCRemoteSwiftPackageReference "Embassy" */,
+				6EB296B62409BBAA004B976D /* XCRemoteSwiftPackageReference "Ambassador" */,
+			);
 			productRefGroup = C141B62623EF0AAB003AAE22 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -292,6 +309,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6EB296B52409B570004B976D /* HttpMockingTests.swift in Sources */,
 				C157092923F1FD75003481FB /* TestBaseForSelector.m in Sources */,
 				C157092B23F1FEB1003481FB /* DelegatingTestBase.swift in Sources */,
 				C157091223EF4E37003481FB /* SampleiOSUITests.swift in Sources */,
@@ -550,6 +568,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6EB296AF2409B3A2004B976D /* XCRemoteSwiftPackageReference "Embassy" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/envoy/Embassy";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.1;
+			};
+		};
+		6EB296B62409BBAA004B976D /* XCRemoteSwiftPackageReference "Ambassador" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/envoy/Ambassador";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6EB296B22409B3E3004B976D /* Embassy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EB296AF2409B3A2004B976D /* XCRemoteSwiftPackageReference "Embassy" */;
+			productName = Embassy;
+		};
+		6EB296B72409BBAA004B976D /* Ambassador */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6EB296B62409BBAA004B976D /* XCRemoteSwiftPackageReference "Ambassador" */;
+			productName = Ambassador;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C141B61D23EF0AAB003AAE22 /* Project object */;
 }
