@@ -50,7 +50,7 @@ open class TestExample {
     }
 
     @Test
-    fun testServer() {
+    open fun testServer() {
         mockServer {
             port = 8080
         }.use {

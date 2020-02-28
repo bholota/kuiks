@@ -1,4 +1,4 @@
-package Method
+package server
 
 class Method {
 

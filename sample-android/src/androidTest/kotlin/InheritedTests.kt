@@ -8,4 +8,9 @@ class InheritedTests : TestExample() {
     fun req() {
         // nope
     }
+
+    @Test
+    override fun testServer() {
+        super.testServer()
+    }
 }
