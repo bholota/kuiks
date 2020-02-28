@@ -9,13 +9,13 @@ actual class MockServer {
         server.start(port)
     }
 
-    actual fun route(rout: Pair<String, String>) {
+    actual fun route(vararg rout: Pair<String, String>) {
+        val map = hashMapOf(*rout)
         server.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse =
-                if (rout.first.equals(request.path)) {
-                    MockResponse().setBody(rout.second).setResponseCode(200)
-                } else
-                    MockResponse().setResponseCode(200)
+                map[request.path]?.let { response ->
+                    MockResponse().setBody(response).setResponseCode(200)
+                } ?: MockResponse().setResponseCode(200)
         }
     }
 
