@@ -3,6 +3,7 @@ package dev.michallaskowski.kuiks.sample.sharedTests
 import com.laskowski.kuiks.ApplicationWrapper
 import com.laskowski.kuiks.Platform
 import com.laskowski.kuiks.platform
+import mockServer
 import kotlin.test.Test
 
 open class TestExample {
@@ -45,5 +46,13 @@ open class TestExample {
         list.cell("99").tap()
 
         app.elementWithTestId("show_list").waitForExistence(1.0)
+    }
+
+    @Test
+    fun testServer() {
+        val server = mockServer {
+
+        }
+        val s = ""
     }
 }
