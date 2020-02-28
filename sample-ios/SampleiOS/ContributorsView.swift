@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct Contributor: Decodable {
+struct Contributor: Codable {
     let login: String
     let contributions: Int
 }
@@ -69,7 +69,8 @@ final class ContributorsResource: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
 
     func getContributors() {
-        contributorsProvider.contributors(owner: "michallaskowski", repo: "kuiks").map { contributors in
+        contributorsProvider.contributors(owner: "michallaskowski", repo: "kuiks")
+        .map { contributors in
             contributors.map {
                 $0.login
         }.joined(separator: ", ")
