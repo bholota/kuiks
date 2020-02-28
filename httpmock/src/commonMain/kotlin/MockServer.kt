@@ -2,15 +2,15 @@ expect class MockServer(port: Int) {
 
     fun use(scope: MockServer.() -> Unit)
 
-    fun shutdown(): Unit
+    fun shutdown()
 }
 
-class MockServerBuilder {
+class MockServerConfig {
     var port = 8080
 }
 
-fun mockServer(init: MockServerBuilder.() -> Unit): MockServer {
-    return MockServerBuilder().apply(init).create()
+fun mockServer(init: MockServerConfig.() -> Unit): MockServer {
+    return MockServerConfig().apply(init).create()
 }
 
-private fun MockServerBuilder.create() = MockServer(port)
+private fun MockServerConfig.create() = MockServer(port)
