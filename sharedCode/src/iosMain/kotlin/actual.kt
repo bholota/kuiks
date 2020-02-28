@@ -22,15 +22,15 @@ class UIElementWrapper(val element: XCUIElement): AppElement {
         return UIElementWrapper(query)
     }
 
-    override fun waitForExistence(timeout: Long) {
+    override fun waitForExistence(timeout: Double) {
         element.waitForExistenceWithTimeout(timeout)
     }
 
-    override fun hasText(text: String, timeout: Long) {
+    override fun hasText(text: String, timeout: Double) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getText(timeout: Long): String {
+    override fun getText(timeout: Double): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -68,15 +68,15 @@ actual class ApplicationWrapper actual constructor(identifier: String) : Applica
         return UIElementWrapper(app).table(withId)
     }
 
-    override fun waitForExistence(timeout: Long) {
+    override fun waitForExistence(timeout: Double) {
         return UIElementWrapper(app).waitForExistence(timeout)
     }
 
-    override fun hasText(text: String, timeout: Long) {
+    override fun hasText(text: String, timeout: Double) {
         return UIElementWrapper(app).hasText(text, timeout)
     }
 
-    override fun getText(timeout: Long): String {
+    override fun getText(timeout: Double): String {
         return UIElementWrapper(app).getText(timeout)
     }
 
