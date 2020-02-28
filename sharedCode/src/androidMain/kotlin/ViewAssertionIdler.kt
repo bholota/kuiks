@@ -67,11 +67,10 @@ class ViewAssertionIdler private constructor(
         fun waitFor(
             viewMatcher: Matcher<View>,
             viewAssertion: ViewAssertion,
-            timeout: Long,
-            unit: TimeUnit
+            timeout: Double
         ) {
-            IdlingPolicies.setMasterPolicyTimeout(timeout, unit)
-            IdlingPolicies.setIdlingResourceTimeout(timeout, unit)
+            IdlingPolicies.setMasterPolicyTimeout(timeout.times(1000).toLong(), TimeUnit.MILLISECONDS)
+            IdlingPolicies.setIdlingResourceTimeout(timeout.times(1000).toLong(), TimeUnit.MILLISECONDS)
             val idler = ViewAssertionIdler(viewMatcher, viewAssertion)
             val idlingRegistry = IdlingRegistry.getInstance()
 

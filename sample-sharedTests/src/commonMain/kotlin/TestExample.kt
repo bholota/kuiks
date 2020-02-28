@@ -32,7 +32,7 @@ open class TestExample {
         val list = app.table("list")
         list.cell("1").tap()
 
-        app.elementWithTestId("show_list").waitForExistence(1)
+        app.elementWithTestId("show_list").waitForExistence(1.0)
     }
 
     @Test
@@ -45,7 +45,7 @@ open class TestExample {
         val list = app.table("list")
         list.cell("99").tap()
 
-        app.elementWithTestId("show_list").waitForExistence(1)
+        app.elementWithTestId("show_list").waitForExistence(1.0)
     }
 
     @Test

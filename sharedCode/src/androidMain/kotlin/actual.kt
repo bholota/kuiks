@@ -22,7 +22,7 @@ actual val platform: Platform = Platform.Android
 
 class ElementWrapper(val matcher: Matcher<View>) : AppElement {
     override fun tap() {
-        Espresso.onView(matcher).perform(ViewActions.click())
+        onView(matcher).perform(ViewActions.click())
     }
 
     override fun elementWithTestId(testId: String): AppElement {
@@ -40,30 +40,28 @@ class ElementWrapper(val matcher: Matcher<View>) : AppElement {
 
     override fun cell(withId: String): AppElement {
         val cellMatcher = ViewMatchers.withContentDescription(withId)
-        Espresso.onView(matcher)
+        onView(matcher)
             .perform(RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(cellMatcher))
         return ElementWrapper(cellMatcher)
     }
 
-    override fun waitForExistence(timeout: Long) {
+    override fun waitForExistence(timeout: Double) {
         ViewAssertionIdler.waitFor(
             matcher,
             ViewAssertions.matches(ViewMatchers.isDisplayed()),
-            timeout,
-            TimeUnit.SECONDS
+            timeout
         )
     }
 
-    override fun hasText(text: String, timeout: Long) {
+    override fun hasText(text: String, timeout: Double) {
         ViewAssertionIdler.waitFor(
             matcher,
             ViewAssertions.matches(ViewMatchers.withText(containsString(text))),
-            timeout,
-            TimeUnit.SECONDS
+            timeout
         )
     }
 
-    override fun getText(timeout: Long): String {
+    override fun getText(timeout: Double): String {
         var text = ""
         onView(matcher).check { hasTextView, noTextView ->
             if (noTextView != null) {
@@ -77,7 +75,6 @@ class ElementWrapper(val matcher: Matcher<View>) : AppElement {
             } else {
                 (hasTextView as EditText).text.toString()
             }
-
         }
         return text
     }
@@ -115,15 +112,15 @@ actual class ApplicationWrapper actual constructor(private val identifier: Strin
         TODO("not implemented")
     }
 
-    override fun waitForExistence(timeout: Long) {
+    override fun waitForExistence(timeout: Double) {
         TODO("not implemented")
     }
 
-    override fun hasText(text: String, timeout: Long) {
+    override fun hasText(text: String, timeout: Double) {
         //TODO
     }
 
-    override fun getText(timeout: Long): String {
+    override fun getText(timeout: Double): String {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
