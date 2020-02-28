@@ -50,9 +50,12 @@ open class TestExample {
 
     @Test
     fun testServer() {
-        val server = mockServer {
-
+        mockServer {
+            port = 8080
+        }.use {
+            val app = ApplicationWrapper(identifier)
+            app.launch()
+            app.elementWithTestId("make_call").tap()
         }
-        val s = ""
     }
 }
