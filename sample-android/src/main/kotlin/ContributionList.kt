@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.contribution_list.*
-import tech.viacom.sample_android_web.internal.server.api.createService
 
 class ContributionList : AppCompatActivity() {
 
@@ -21,7 +20,7 @@ class ContributionList : AppCompatActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                call_response_text_view.text = it.toString()
+                label.text= it.joinToString(separator = ", ") { it.login }
             }, {
                 it.printStackTrace()
             })

@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         show_list_button.setOnClickListener {
             startActivity(Intent(this, ListActivity::class.java))
         }
-        make_call_button.setOnClickListener {
+        show_contributors.setOnClickListener {
             startActivity(Intent(this, ContributionList::class.java))
         }
     }
