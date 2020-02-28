@@ -5,3 +5,4 @@ include ':sample-sharedTests'
 include ':sample-android'
 
 enableFeaturePreview('GRADLE_METADATA')
+include ':httpmock'
