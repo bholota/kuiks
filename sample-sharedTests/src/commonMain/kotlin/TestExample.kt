@@ -1,6 +1,7 @@
 package dev.michallaskowski.kuiks.sample.sharedTests
 
 import MockServer
+import MockServerFactory
 import com.laskowski.kuiks.ApplicationWrapper
 import com.laskowski.kuiks.Platform
 import com.laskowski.kuiks.platform
@@ -50,10 +51,10 @@ open class TestExample {
 
     @Test
     open fun testServer() {
-        MockServer()
+        MockServerFactory().mockServer()
             .apply {
                 start(8080)
-            }.use {
+
                 route(
                     mapOf(
                         "/repos/michallaskowski/kuiks/contributors" to
@@ -67,6 +68,8 @@ open class TestExample {
                 app.elementWithTestId("make_call").tap()
                 app.elementWithTestId("label").hasText("Dawid")
                 check(app.elementWithTestId("label").getText().equals("Dawid, michallaskowskivimn"))
+
+                shutdown()
             }
     }
 }

@@ -1,7 +1,9 @@
-expect class MockServer() {
+interface MockServer {
     fun start(port: Int)
-    fun route(rout: Map<String, String>)
-    fun use(scope: MockServer.() -> Unit)
-
+    fun route(route: Map<String, String>)
     fun shutdown()
+}
+
+expect class MockServerFactory() {
+    fun mockServer(): MockServer
 }

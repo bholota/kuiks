@@ -3,13 +3,14 @@ import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 
-actual class MockServer {
+class MockServerImpl: MockServer {
+
     private val server = MockWebServer()
-    actual fun start(port: Int) {
+    override fun start(port: Int) {
         server.start(port)
     }
 
-    actual fun route(rout: Map<String, String>) {
+    override fun route(rout: Map<String, String>) {
         server.dispatcher = object : Dispatcher() {
             override fun dispatch(request: RecordedRequest): MockResponse =
                 rout[request.path]?.let { response ->
@@ -18,12 +19,12 @@ actual class MockServer {
         }
     }
 
-    actual fun use(scope: MockServer.() -> Unit) {
-        scope()
-        shutdown()
-    }
-
-    actual fun shutdown() =
+    override fun shutdown() =
         server.shutdown()
+}
 
+actual class MockServerFactory {
+    actual fun mockServer(): MockServer {
+        return MockServerImpl()
+    }
 }
