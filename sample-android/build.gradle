@@ -52,5 +52,4 @@ dependencies {
 
     androidTestImplementation project(':sample-sharedTests')
     implementation project(":sample-android-web")
-
 }

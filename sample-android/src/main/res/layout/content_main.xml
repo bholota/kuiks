@@ -7,17 +7,28 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
-    
+
 
     <Button
         android:id="@+id/show_list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Show list"
-        android:contentDescription="show_list"
+        android:text="@string/show_list"
+        android:contentDescription="@string/show_list_content_description"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/make_call_button"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/make_call_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/make_call"
+        android:contentDescription="@string/make_call_content_description"
+        app:layout_constraintBottom_toBottomOf="@+id/show_list_button"
+        app:layout_constraintLeft_toLeftOf="@+id/show_list_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/show_list_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

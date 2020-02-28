@@ -1,4 +1,3 @@
-import android.util.Log
 import com.laskowski.kuiks.ApplicationWrapper
 import dev.michallaskowski.kuiks.sample.sharedTests.TestExample
 import okhttp3.mockwebserver.Dispatcher
@@ -26,8 +25,7 @@ class InheritedTests : TestExample() {
 
             val app = ApplicationWrapper(identifier)
             app.launch()
-            app.elementWithTestId("show_list").tap()
-
+            app.elementWithTestId("make_call").tap()
             shutdown()
         }
     }

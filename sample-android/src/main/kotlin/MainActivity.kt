@@ -2,16 +2,12 @@ package dev.michallaskowski.kuiks.sample.android
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
-import tech.viacom.sample_android_web.internal.server.api.createService
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,19 +15,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-        createService()
-            .contributors("michallaskowski", "kuiks")
-            .subscribeOn(Schedulers.io())
-            .subscribe({
-                it.forEach { contr ->
-                    Log.d("XXX", "" + contr.contributions + " " + contr.login)
-                }
-            }, {
-                it.printStackTrace()
-            })
         show_list_button.setOnClickListener {
-            val goToListIntent = Intent(this, ListActivity::class.java)
-            startActivity(goToListIntent)
+            startActivity(Intent(this, ListActivity::class.java))
+        }
+        make_call_button.setOnClickListener {
+            startActivity(Intent(this, ContributionList::class.java))
         }
     }
 
