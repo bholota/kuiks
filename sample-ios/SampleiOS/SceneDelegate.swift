@@ -20,8 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = ContentView(didTapList: { [weak self] in
-            self?.presentList()
+        let contentView = ContentView(didMakeAction: { [weak self] action in
+            switch action {
+            case .goToList:
+                self?.presentList()
+            case .goToNetwork:
+                self?.presentNetworkScreen()
+            }
         })
         let contentViewController = UIHostingController(rootView: contentView)
 
@@ -48,6 +53,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             listViewController.dismiss(animated: true, completion: nil)
         }
         self.window?.rootViewController?.present(listViewController, animated: true, completion: nil)
+    }
+
+    private func presentNetworkScreen() {
+        let contributorsView = ContributorsView()
+        let viewController = UIHostingController(rootView: contributorsView)
+        self.window?.rootViewController?.present(viewController, animated: true, completion: nil)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

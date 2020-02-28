@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EB296AD24096B6C004B976D /* ContributorsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB296AC24096B6C004B976D /* ContributorsView.swift */; };
 		C133927623FF434F00000C1B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C133927523FF434F00000C1B /* ListView.swift */; };
 		C1339278240165BA00000C1B /* ListViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1339277240165BA00000C1B /* ListViewControler.swift */; };
 		C141B62923EF0AAB003AAE22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C141B62823EF0AAB003AAE22 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6EB296AC24096B6C004B976D /* ContributorsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributorsView.swift; sourceTree = "<group>"; };
 		C133927523FF434F00000C1B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		C1339277240165BA00000C1B /* ListViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControler.swift; sourceTree = "<group>"; };
 		C141B62523EF0AAB003AAE22 /* SampleiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +120,7 @@
 				C141B63023EF0AAE003AAE22 /* Preview Content */,
 				C133927523FF434F00000C1B /* ListView.swift */,
 				C1339277240165BA00000C1B /* ListViewControler.swift */,
+				6EB296AC24096B6C004B976D /* ContributorsView.swift */,
 			);
 			path = SampleiOS;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 			files = (
 				C133927623FF434F00000C1B /* ListView.swift in Sources */,
 				C1339278240165BA00000C1B /* ListViewControler.swift in Sources */,
+				6EB296AD24096B6C004B976D /* ContributorsView.swift in Sources */,
 				C141B62923EF0AAB003AAE22 /* AppDelegate.swift in Sources */,
 				C141B62B23EF0AAB003AAE22 /* SceneDelegate.swift in Sources */,
 				C141B62D23EF0AAB003AAE22 /* ContentView.swift in Sources */,
