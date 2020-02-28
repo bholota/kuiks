@@ -1,4 +1,4 @@
-include ':kuiks-core'
+include ':kuiks-core', ':sample-android-web'
 project(':kuiks-core').projectDir = file('./sharedCode')
 
 include ':sample-sharedTests'
