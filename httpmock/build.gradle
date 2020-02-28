@@ -2,7 +2,6 @@ apply plugin: 'kotlin-multiplatform'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.android.library'
-apply plugin: 'org.jetbrains.kotlin.native.cocoapods'
 
 
 android {
@@ -68,9 +67,5 @@ kotlin {
 
         iOSMain.dependencies {
         }
-    }
-
-    cocoapods {
-        pod("Embassy", "~> 4.1")
     }
 }
