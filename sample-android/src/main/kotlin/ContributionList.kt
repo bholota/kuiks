@@ -16,14 +16,14 @@ class ContributionList : AppCompatActivity() {
     }
 
     private fun setResponseText() {
-        createService()
-                    .contributors("michallaskowski", "kuiks")
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({
-                        call_response_text_view.text = it.toString()
-                    }, {
-                        it.printStackTrace()
+        (application as BaseSampleApplication).service
+            .contributors("michallaskowski", "kuiks")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                call_response_text_view.text = it.toString()
+            }, {
+                it.printStackTrace()
             })
     }
 }

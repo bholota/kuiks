@@ -6,8 +6,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun createService() =
-    Retrofit.Builder().baseUrl("http://localhost:8080")
+fun createService(baseUrl: String) =
+    Retrofit.Builder().baseUrl(baseUrl)
         .client(createOkHttpClient())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
