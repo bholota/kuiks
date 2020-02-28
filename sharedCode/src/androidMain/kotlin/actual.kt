@@ -3,14 +3,15 @@ package com.laskowski.kuiks
 import android.content.Intent
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.platform.app.InstrumentationRegistry
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
+
 
 actual val platform: Platform = Platform.Android
 
@@ -40,6 +41,10 @@ class ElementWrapper(val matcher: Matcher<View>): AppElement {
 
     override fun waitForExistence(timeout: Double) {
         Espresso.onView(matcher).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    }
+
+    override fun hasText(text: String) {
+        Espresso.onView(matcher).check(ViewAssertions.matches(ViewMatchers.withText(text)))
     }
 
     override val debugDescription: String
@@ -77,6 +82,10 @@ actual class ApplicationWrapper actual constructor(private val identifier: Strin
 
     override fun waitForExistence(timeout: Double) {
         TODO("not implemented")
+    }
+
+    override fun hasText(text: String) {
+        //TODO
     }
 
     override val debugDescription: String

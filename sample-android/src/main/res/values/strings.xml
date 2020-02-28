@@ -5,4 +5,5 @@
     <string name="show_list_content_description">show_list</string>
     <string name="make_call">Make call</string>
     <string name="make_call_content_description">make_call</string>
+    <string name="label">label</string>
 </resources>

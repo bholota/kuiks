@@ -5,6 +5,7 @@ import com.laskowski.kuiks.Platform
 import com.laskowski.kuiks.platform
 import mockServer
 import kotlin.test.Test
+import kotlin.time.TestClock
 
 open class TestExample {
 
@@ -56,6 +57,7 @@ open class TestExample {
             val app = ApplicationWrapper(identifier)
             app.launch()
             app.elementWithTestId("make_call").tap()
+            app.elementWithTestId("label").hasText("Dawid, michallaskowskivimn")
         }
     }
 }

@@ -6,6 +6,7 @@ interface AppElement {
     fun table(withId: String): AppElement
     fun cell(withId: String): AppElement
     fun waitForExistence(timeout: Double)
+    fun hasText(text: String)
     val debugDescription: String
 }
 
