@@ -1,10 +1,10 @@
 actual class MockServerFactory {
 
     companion object {
-        lateinit var instance: MockServer
+        var instance: MockServer? = null
     }
 
     actual fun mockServer(): MockServer {
-        return instance
+        return instance!!
     }
 }

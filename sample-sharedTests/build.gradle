@@ -42,6 +42,7 @@ kotlin {
                     baseName = "sharedTests"
                     transitiveExport = true
                     export project(':kuiks-core')
+                    export project(':httpmock')
 
 //                    linkerOpts += ['-framework', 'UIKit', '-framework', 'XCTest']
                 }
@@ -70,6 +71,10 @@ kotlin {
         androidMain.dependencies {
             implementation 'org.jetbrains.kotlin:kotlin-stdlib'
             implementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+        }
+
+        iOSSimulatorMain.dependencies {
+            api project(':httpmock')
         }
     }
 }

@@ -49,9 +49,11 @@ open class TestExample {
         app.elementWithTestId("show_list").waitForExistence(1.0)
     }
 
+    open var mockServer: MockServer? = null
+
     @Test
     open fun testServer() {
-        MockServerFactory().mockServer()
+        (mockServer ?: MockServerFactory().mockServer())
             .apply {
                 start(8080)
 
