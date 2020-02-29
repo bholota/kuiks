@@ -1,6 +1,7 @@
 interface MockServer {
     fun start(port: Int)
     fun route(route: Map<String, String>)
+    fun routeRemote(remotes: Map<String, String>)
     fun shutdown()
 }
 

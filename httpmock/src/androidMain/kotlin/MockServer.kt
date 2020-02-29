@@ -19,6 +19,10 @@ class MockServerImpl: MockServer {
         }
     }
 
+    override fun routeRemote(remotes: Map<String, String>) {
+        TODO()
+    }
+
     override fun shutdown() =
         server.shutdown()
 }

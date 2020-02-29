@@ -71,4 +71,22 @@ open class TestExample {
 
         server.shutdown()
     }
+
+    @Test
+    fun testWithRemote() {
+        val server = (mockServer ?: MockServerFactory().mockServer())
+        server.start(8080)
+
+        server.routeRemote(
+            mapOf("/repos/michallaskowski/kuiks/contributors" to "https://api.github.com/repos/michallaskowski/MLVerticalProgressView/contributors")
+        )
+
+        val app = ApplicationWrapper(identifier)
+        app.launch(arguments = mapOf( "contributors_url" to "http://localhost:8080" ))
+        app.elementWithTestId("make_call").tap()
+        app.elementWithTestId("label").hasText("Dawid")
+        check(app.elementWithTestId("label").getText().equals("michallaskowski"))
+
+        server.shutdown()
+    }
 }

@@ -38,6 +38,12 @@ final class MockServerImpl: MockServer {
         }
     }
 
+    func routeRemote(remotes: [String: String]) {
+        remotes.forEach { (key, url) in
+            router[key] = RewriteResponse(url: URL(string: url)!)
+        }
+    }
+
     func shutdown() {
         eventLoop.stop()
         server.stop()
@@ -48,6 +54,27 @@ final class MockServerImpl: MockServer {
         server = DefaultHTTPServer(eventLoop: eventLoop, port: Int(port), app: router.app)
         try! server.start()
         eventLoopThread.start()
+    }
+}
+
+private final class RewriteResponse: WebApp {
+    let url: URL
+    init(url: URL) {
+        self.url = url
+    }
+
+    func app(_ environ: [String : Any], startResponse: @escaping ((String, [(String, String)]) -> Void), sendBody: @escaping ((Data) -> Void)) {
+        let remoteCall = URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let _ = error {
+                XCTFail()
+                return
+            }
+
+            startResponse("200 OK", [("Content-Type", "application/json")])
+            sendBody(data!)
+            sendBody(Data())
+        }
+        remoteCall.resume()
     }
 }
 
