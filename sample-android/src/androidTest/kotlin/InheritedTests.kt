@@ -3,14 +3,8 @@ import org.junit.Test
 
 
 class InheritedTests : TestExample() {
-
     @Test
-    fun req() {
-        // nope
-    }
-
-    @Test
-    override fun testServer() {
-        super.testServer()
+    override fun testWithRemote() {
+        super.testWithRemote()
     }
 }

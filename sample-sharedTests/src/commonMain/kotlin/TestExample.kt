@@ -73,7 +73,7 @@ open class TestExample {
     }
 
     @Test
-    fun testWithRemote() {
+    open  fun testWithRemote() {
         val server = (mockServer ?: MockServerFactory().mockServer())
         server.start(8080)
 

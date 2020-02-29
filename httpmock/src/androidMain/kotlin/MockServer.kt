@@ -20,7 +20,7 @@ class MockServerImpl: MockServer {
     }
 
     override fun routeRemote(remotes: Map<String, String>) {
-        TODO()
+        server.dispatcher = ReverseProxyDispatcher(remotes)
     }
 
     override fun shutdown() =
