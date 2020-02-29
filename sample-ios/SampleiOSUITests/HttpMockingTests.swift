@@ -62,14 +62,14 @@ final class HttpMockingTests: XCTestCase {
 
         app.launch()
 
-        app.buttons["show_contributors"].tap()
+        app.buttons["make_call"].tap()
         let errorLabel = app.staticTexts.matching(identifier: "label").matching(NSPredicate(format: "label CONTAINS[c] 'error'")).element.label
         XCTAssertEqual(errorLabel, "Error!")
     }
 
     func testWithMockedResponse() {
         let app = XCUIApplication()
-        app.launchArguments = ["-contributors_url", "http://localhost:\(port)/"]
+        app.launchArguments = ["-contributors_url", "http://localhost:\(port)"]
         router["/repos/michallaskowski/kuiks/contributors"] = JSONResponse { _ in
             [
                 ["login": "michal", "contributions": 1],
@@ -79,7 +79,7 @@ final class HttpMockingTests: XCTestCase {
 
         app.launch()
 
-        app.buttons["show_contributors"].tap()
+        app.buttons["make_call"].tap()
 
         XCTAssertEqual(app.staticTexts["label"].label, "Loading...")
 
@@ -90,11 +90,11 @@ final class HttpMockingTests: XCTestCase {
 
     func testWithMockedResponseWiremock() {
         let app = XCUIApplication()
-        app.launchArguments = ["-contributors_url", "http://localhost:8080"]
+        app.launchArguments = ["-contributors_url", "http://internal-codef-inter-1rywkngp1dd4o-695077186.us-east-1.elb.amazonaws.com/uuid1"]
 
         app.launch()
 
-        app.buttons["show_contributors"].tap()
+        app.buttons["make_call"].tap()
 
         // wait for updated label
         let updatedLabel = app.staticTexts.matching(identifier: "label").matching(NSPredicate(format: "label CONTAINS[c] 'michal'")).element.label
