@@ -10,16 +10,16 @@ import Foundation
 
 class DelegatingTestBase: TestBaseForSelector {
 
-    // needs to be overriden to return class implementing test methods
-    class func testClass() -> AnyClass {
-        return NSObject.self
+    // needs to be overriden to return object implementing test* methods
+    class func testObject() -> NSObject {
+        return NSObject.init()
     }
 
+    private static var testClassInstance: NSObject! // needs to be provided
+
     override class func registerTest(for selector: Selector) {
-        // casting to NSObject.Type needed because:
-        // https://stackoverflow.com/questions/55831682/swift-thinks-im-subclassing-nsset-wrongly-but-im-not-subclassing-it-at-all
-        let testObject = (testClass() as! NSObject.Type).init()
-        addInstanceMethod(object: testObject, selector: selector)
+        testClassInstance = testObject()
+        addInstanceMethod(object: testClassInstance, selector: selector)
     }
 
     // inspired by https://github.com/Quick/Quick/blob/4a4b6c7dd5aac29e0ea8263d1829de006227f59e/Sources/Quick/QuickSpec.swift
@@ -29,14 +29,15 @@ class DelegatingTestBase: TestBaseForSelector {
     }
 
     private class func registerTestSelectors() {
+        testClassInstance = testObject()
+
         var methodCount: UInt32 = 0
-        let methodList = class_copyMethodList(testClass(), &methodCount)
+        let testClass: AnyClass? = object_getClass(testClassInstance)
+        let methodList = class_copyMethodList(testClass, &methodCount)
         defer { free(methodList) }
         guard methodCount > 0 else {
             return
         }
-
-        let testObject = (testClass() as! NSObject.Type).init()
 
         if let methodList = methodList, methodCount > 0 {
             enumerateCArray(array: methodList, count: methodCount) { i, m in
@@ -44,7 +45,7 @@ class DelegatingTestBase: TestBaseForSelector {
                 let selectorName = NSStringFromSelector(selector)
 
                 if selectorName.hasPrefix("test") {
-                    addInstanceMethod(object: testObject, selector: selector)
+                    addInstanceMethod(object: testClassInstance, selector: selector)
                 }
             }
         }
