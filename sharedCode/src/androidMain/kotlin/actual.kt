@@ -85,7 +85,7 @@ class ElementWrapper(val matcher: Matcher<View>) : AppElement {
 }
 
 actual class ApplicationWrapper actual constructor(private val identifier: String) : Application {
-    override fun launch() {
+    override fun launch(arguments: Map<String, String>) {
         // based on https://github.com/appium/appium-espresso-driver/blob/05ccf5a7fa440bfee96400b52672287458676dfa/espresso-server/app/src/androidTest/java/io/appium/espressoserver/lib/helpers/ActivityHelper.kt
         val instrumentation = InstrumentationRegistry.getInstrumentation()
         val appPackage = instrumentation.targetContext.packageName

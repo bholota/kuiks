@@ -12,7 +12,8 @@ interface AppElement {
 }
 
 interface Application: AppElement {
-    fun launch()
+    fun launch(arguments: Map<String, String>)
+    fun launch() = launch(arguments = emptyMap())
 }
 
 @Target(AnnotationTarget.FUNCTION)

@@ -49,7 +49,11 @@ actual class ApplicationWrapper actual constructor(identifier: String) : Applica
 
     private val app: XCUIApplication = XCUIApplication()
 
-    override fun launch() {
+    override fun launch(arguments: Map<String, String>) {
+        val launchArguments = arguments.flatMap {
+            listOf("-${it.key}", "${it.value}")
+        }
+        app.launchArguments = launchArguments
         app.launch()
     }
 

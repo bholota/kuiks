@@ -52,26 +52,23 @@ open class TestExample {
     open var mockServer: MockServer? = null
 
     @Test
-    open fun testServer() {
-        (mockServer ?: MockServerFactory().mockServer())
-            .apply {
-                start(8080)
+    fun testServer() {
+        val server = (mockServer ?: MockServerFactory().mockServer())
+        server.start(8080)
 
-                route(
-                    mapOf(
-                        "/repos/michallaskowski/kuiks/contributors" to
-                                "[{\"login\":\"Dawid\",\"id\":3706309,\"node_id\":\"MDQ6VXNlcjM3MDYzMDk=\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/3706309?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michallaskowski\",\"html_url\":\"https://github.com/michallaskowski\",\"followers_url\":\"https://api.github.com/users/michallaskowski/followers\",\"following_url\":\"https://api.github.com/users/michallaskowski/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michallaskowski/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michallaskowski/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michallaskowski/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michallaskowski/orgs\",\"repos_url\":\"https://api.github.com/users/michallaskowski/repos\",\"events_url\":\"https://api.github.com/users/michallaskowski/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michallaskowski/received_events\",\"type\":\"User\",\"site_admin\":false,\"contributions\":28},{\"login\":\"michallaskowskivimn\",\"id\":22892014,\"node_id\":\"MDQ6VXNlcjIyODkyMDE0\",\"avatar_url\":\"https://avatars1.githubusercontent.com/u/22892014?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michallaskowskivimn\",\"html_url\":\"https://github.com/michallaskowskivimn\",\"followers_url\":\"https://api.github.com/users/michallaskowskivimn/followers\",\"following_url\":\"https://api.github.com/users/michallaskowskivimn/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michallaskowskivimn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michallaskowskivimn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michallaskowskivimn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michallaskowskivimn/orgs\",\"repos_url\":\"https://api.github.com/users/michallaskowskivimn/repos\",\"events_url\":\"https://api.github.com/users/michallaskowskivimn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michallaskowskivimn/received_events\",\"type\":\"User\",\"site_admin\":false,\"contributions\":4}]",
-                        "/repos/michallaskowski/kuiks/testers" to
-                                "[{\"login\":\"Oscar\",\"id\":3706309,\"node_id\":\"MDQ6VXNlcjM3MDYzMDk=\",\"avatar_url\":\"https://avatars0.githubusercontent.com/u/3706309?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michallaskowski\",\"html_url\":\"https://github.com/michallaskowski\",\"followers_url\":\"https://api.github.com/users/michallaskowski/followers\",\"following_url\":\"https://api.github.com/users/michallaskowski/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michallaskowski/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michallaskowski/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michallaskowski/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michallaskowski/orgs\",\"repos_url\":\"https://api.github.com/users/michallaskowski/repos\",\"events_url\":\"https://api.github.com/users/michallaskowski/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michallaskowski/received_events\",\"type\":\"User\",\"site_admin\":false,\"contributions\":28},{\"login\":\"michallaskowskivimn\",\"id\":22892014,\"node_id\":\"MDQ6VXNlcjIyODkyMDE0\",\"avatar_url\":\"https://avatars1.githubusercontent.com/u/22892014?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/michallaskowskivimn\",\"html_url\":\"https://github.com/michallaskowskivimn\",\"followers_url\":\"https://api.github.com/users/michallaskowskivimn/followers\",\"following_url\":\"https://api.github.com/users/michallaskowskivimn/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/michallaskowskivimn/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/michallaskowskivimn/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/michallaskowskivimn/subscriptions\",\"organizations_url\":\"https://api.github.com/users/michallaskowskivimn/orgs\",\"repos_url\":\"https://api.github.com/users/michallaskowskivimn/repos\",\"events_url\":\"https://api.github.com/users/michallaskowskivimn/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/michallaskowskivimn/received_events\",\"type\":\"User\",\"site_admin\":false,\"contributions\":4}]"
-                    )
-                )
-                val app = ApplicationWrapper(identifier)
-                app.launch()
-                app.elementWithTestId("make_call").tap()
-                app.elementWithTestId("label").hasText("Dawid")
-                check(app.elementWithTestId("label").getText().equals("Dawid, michallaskowskivimn"))
+        server.route(
+            mapOf(
+                "/repos/michallaskowski/kuiks/contributors" to
+                        "[{\"login\":\"Dawid\",\"contributions\":1},{\"login\":\"michallaskowski\",\"contributions\":3}]",
+                "/repos/michallaskowski/kuiks/testers" to
+                        "[{\"login\":\"Oscar\",\"contributions\":2}]")
+        )
+        val app = ApplicationWrapper(identifier)
+        app.launch(arguments = mapOf( "contributors_url" to "http://localhost:8080" ))
+        app.elementWithTestId("make_call").tap()
+        app.elementWithTestId("label").hasText("Dawid")
+        check(app.elementWithTestId("label").getText().equals("Dawid, michallaskowski"))
 
-                shutdown()
-            }
+        server.shutdown()
     }
 }
